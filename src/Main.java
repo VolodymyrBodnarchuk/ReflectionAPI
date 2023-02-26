@@ -17,10 +17,10 @@ public class Main {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException,
             ClassNotFoundException, NoSuchMethodException, InstantiationException {
 
-       var randomizerInterface = Class.forName("temp.Randomizer");
+       var randomizerInterface = Class.forName("temp.Randomizer"); // підгружаємо інтерфейс
        var classLoader = randomizerInterface.getClassLoader();
        var interfacesToImplement = new Class<?>[]{randomizerInterface};
-        InvocationHandler handler = ((proxy, method, args1) -> {
+        InvocationHandler handler = ((proxy, method, args1) -> { // invocationHanler описує виклик інтерфейсу
            if(method.getName().equals("randomize")){
                var list = (List<?>) args1[0];
                var index = ThreadLocalRandom.current().nextInt(list.size());
@@ -36,15 +36,15 @@ public class Main {
 
 
 
-        /*var randomizerClass = Class.forName("temp.Randomizer");
-        var methods = randomizerClass.getDeclaredMethods();
+        /*var randomizerClass = Class.forName("temp.Randomizer"); // пошук файлу
+        var methods = randomizerClass.getDeclaredMethods(); // читаємо мета дані.
         System.out.println(Arrays.toString(methods));
         var randomizeMethod = methods[0];
-        System.out.println(Arrays.toString(randomizeMethod.getParameters()));
+        System.out.println(Arrays.toString(randomizeMethod.getParameters())); // виводимо на екран параметри
 
-        var randomizerConstructor = randomizerClass.getConstructor();
-        var randomizer = randomizerConstructor.newInstance();
-        var result = randomizeMethod.invoke(randomizer, List.of(1,2,3,4,5));
+        var randomizerConstructor = randomizerClass.getConstructor(); // получаємо конструктор
+        var randomizer = randomizerConstructor.newInstance(); // викликаємо метод
+        var result = randomizeMethod.invoke(randomizer, List.of(1,2,3,4,5)); // викликаємо randomizer
         System.out.println(result);*/
     }
 }
